@@ -3,19 +3,46 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "bootstrap": "^4.5.0",
+    "compression": "^1.7.4",
+    "concurrently": "^5.2.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.2",
+    "express": "^4.17.1",
+    "helmet": "^3.22.0",
+    "immutable": "^4.0.0-rc.12",
+    "jquery": "^3.5.1",
+    "moment": "^2.25.3",
+    "mongoose": "^5.9.13",
+    "mongoose-slug-generator": "^1.0.4",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-file-base64": "^1.0.3",
+    "react-froala-wysiwyg": "^3.1.1-1",
+    "react-moment": "^0.9.7",
+    "react-router-dom": "^5.2.0",
+    "react-table": "^7.0.6"
+  },
+  "devDependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "nodemon": "^2.0.3"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "node ./buildScripts",
+    "start-server": "cross-env NODE_ENV=development nodemon server/server.js --watch server/*",
+    "start-front": "react-scripts start",
+    "build-front": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "devstart": "concurrently \"npm run start-server\" \"npm run start-front\" --kill-others",
+    "start": "node server/server.js"
   },
+  "proxy": "http://localhost:4000",
   "eslintConfig": {
     "extends": "react-app"
   },
