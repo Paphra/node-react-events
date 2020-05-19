@@ -59,6 +59,13 @@ export default function Eventform () {
 				.then( res => res.json() )
 				.then( json => {
 					if ( json ) {
+						let pts = []
+						if ( json.partners ) {
+							json.partners.map( pt => {
+								pts.push( pt._id )
+								return null
+							})
+						}
 						setEvent( json )	
 						setTitle(json.title)
 						setOpenSlots(json.openSlots)
@@ -67,9 +74,13 @@ export default function Eventform () {
 						setCurrency(json.currency)
 						setImage( json.image )
 						setLocation(json.location)
-						setCategory(json.category)
+						setCategory( json.category._id )
+						setStartDate( json.startDate )
+						setStartTime(json.startTime)
+						setEndDate( json.endDate )
+						setEndTime(json.endTime)
 						setDescription(json.description)
-						setEventPartners(json.partners)
+						setEventPartners(pts)
 						setStatus(json.status)
 					}
 				} )

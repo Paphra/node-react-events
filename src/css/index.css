@@ -18,9 +18,13 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: antiquewhite;
+  background-color: #eeeeef
 }
-
+.navbar-nav.navbar-center {
+    position: relative;
+    left: 50%;
+    transform: translatex(-50%);
+}
 .reduce-font{
   font-size: 0.9rem;
 }

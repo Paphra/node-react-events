@@ -9,7 +9,7 @@ import Footer from "./static/Footer";
 
 import Home from './Home'
 import About from './About'
-import AllEvents from './events/AllEvents'
+import Events from './events/Events'
 import History from './History'
 
 import Admin from './admin/Admin'
@@ -19,19 +19,27 @@ function App() {
   return (
     <>
       <Header user={{}}/>
-      <div id="content" className="container">
+      <div>
         <Switch>
           <Route path="/history">
-            <History />
+            <div id="content" className="container">
+              <History />
+            </div>
           </Route>
           <Route path="/events">
-            <AllEvents />
+            <div id="content" className="container">
+              <Events />
+            </div>
           </Route>
           <Route path="/about">
-            <About />
+            <div id="content" className="container">
+              <About />
+            </div>
           </Route>
           <Route path="/admin">
-            <Admin />
+            <div id="content" className="container">
+              <Admin />
+            </div>
           </Route>
           <Route path="/">
             <Home />

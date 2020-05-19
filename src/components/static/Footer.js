@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
+import Success from './Success'
+
 function Footer () {
+	const [ about, setAbout ] = useState(null)
 	
 	const [ name, setName ] = useState( '' )
 	const [ email, setEmail ] = useState( '' )
+	const [ success, setSuccess ] = useState(false)
 	
 	const subscribe = ( evt ) => {
 		let pro = true
@@ -26,7 +30,7 @@ function Footer () {
 				}
 			} ).then( res => {
 				if ( res.status === 201 ) {
-					alert("You have Successfully Subscribed to Our Updates")
+					setSuccess(true)
 				} else {
 					alert("Something is Wrong with Your input")
 				}
@@ -37,6 +41,13 @@ function Footer () {
 
 		evt.preventDefault()
 	}
+
+	useEffect( () => {
+		fetch( '/api/about' )
+			.then( res => res.json() )
+			.then(json=>setAbout(json))
+	}, [])
+
 	return (
 
 		<>
@@ -44,30 +55,37 @@ function Footer () {
 				<div className="dropdown-divider"></div>
 				<div className="container-fluid">
         	<div className="row">
-						
 						<div className="col-md-3 text-center">
 							<h6 className="text-center"><i>Important Links</i></h6>
-							<Link to="/" className="btn btn-success btn-block btn-sm">
+							<Link to="/" className="btn btn-secondary btn-sm">
 								Home
 							</Link>
-							<Link to="/events" className="btn btn-outline-success btn-block btn-sm">
+							<Link to="/events" className="btn btn-secondary btn-sm">
 								Events
 							</Link>
-							<Link to="/history" className="btn btn-success btn-block btn-sm">
+							<Link to="/history" className="btn btn-secondary btn-sm">
 								History
 							</Link>
-							<Link to="/about" className="btn btn-primary btn-block btn-sm">
+							<Link to="/about" className="btn btn-secondary btn-sm">
 								About
 							</Link>
-							<Link to="/admin" className="btn btn-success btn-block btn-sm">
+							<div className="dropdown-divider"></div>
+							<Link to="/admin" className="btn btn-secondary btn-sm">
 								Admin
 							</Link>
+							<br/>
 						</div>
-						<div className="col-md-3">
-							
-						</div>
-						<div className="col-md-3">
-							
+						<div className="col-md-6 text-center">
+							<br/>
+							<h6><i>Address</i></h6>
+							{about && <div>
+								<p>{about.address}</p>
+								<a href={`mailto:${ about.email }`} className="btn btn-secondary btn-sm">
+									{about.email}</a><br />
+								<a href={`tel:${ about.email }`} className="btn btn-secondary btn-sm">
+									{about.phone}</a><br />
+							</div>}
+							<br/>
 						</div>
 						<div className="col-md-3">
 							<h6><i>Subscribe</i></h6>
@@ -78,9 +96,19 @@ function Footer () {
 								<input className="form-control" name="email" type="email" 
 									placeholder="Enter Email Address" value={email}
 									onChange={evt=>{setEmail(evt.target.value)}} />
-								<input type="submit" className="btn btn-primary btn-sm btn-block" value="Subscribe" />
+								<input type="submit" className="btn btn-primary btn-sm btn-block"
+									value="Subscribe" />
 							</form>
-						</div>
+							{success && <Success
+								show={success}
+								action="Subscribed To Our Updates"
+								modalId="success"
+								details="You will Receive timely updates about our upcoming events 
+									and the Progress of the Current happens within the world of Sports
+									events"
+							/>}
+							<br/>
+						</div>					
 					</div>
 					<div className="dropdown-divider"></div>
 					<div className="row text-center">

@@ -9,10 +9,10 @@ function Header(props) {
 		<>
 			<div className="container">
 				<div className="row p-2">
-					<div className="col-sm-6">
+					<div className="col-sm-9">
 						<Link to="/" className="row" style={{textDecoration: "none"}}>
 							<div className="col-2">
-								<img src={logo} width="100%" alt="Ultimate Sports" />
+								<img src={logo} width="70%" alt="Ultimate Sports" />
 							</div>
 							<h5 className="col-10 text-left">
 								Ultimate Sports Events <br />
@@ -20,12 +20,12 @@ function Header(props) {
 							</h5>
 						</Link>
 					</div>
-					<div className="col-sm-6">
+					<div className="col-sm-3 text-center">
 						<Search />
 					</div>
 				</div>
 			</div>
-			<nav className="navbar navbar-light navbar-expand-md bg-dark sticky-top shadow">
+			<nav className="navbar navbar-light navbar-expand justify-content-between bg-dark sticky-top shadow">
 				<div className="container">
 					<button className="navbar-toggler navbar-toggler-right" type="button" 
 						data-toggle="collapse" data-target="#navbar-content" 
@@ -34,9 +34,9 @@ function Header(props) {
 						<span className="navbar-toggler-icon"></span>
 					</button>
 					<div id="navbar-content" 
-						className="collapse navbar-collapse text-center">
+						className="collapse navbar-collapse">
 						
-						<ul className="navbar-nav mr-auto">
+						<ul className="nav navbar-nav navbar-center">
 							<li className="nav-item" >
 								<Link className="nav-link text-white" to='/'>
 									<i className="fas fa-home"></i> HOME
