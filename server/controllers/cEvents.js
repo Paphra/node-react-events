@@ -11,17 +11,23 @@ class EventController{
 
 	// get all events
 	static getAllEvents(req, res){
-		Event.find({}, (err, events)=>{
-			if(err) return error(err, res);
-			return res.status(200).json(events);
-		});
+		Event.find( {} )
+			.populate( 'partners' )
+			.populate( 'category' )
+			.exec((err, events)=>{
+				if(err) return error(err, res);
+				return res.status(200).json(events);
+			})
 	}
 
 	static getSingleEvent(req, res){
-		Event.findById(req.params.id, (err, event)=>{
-			if(err) return error(err, res);
-			return res.status(200).json(event);
-		});
+		Event.findById( req.params.id )
+			.populate( 'partners' )
+			.populate( 'category' )
+			.exec((err, event)=>{
+				if(err) return error(err, res);
+				return res.status(200).json(event);
+			})
 	}
 
 	static deleteEvent(req, res){

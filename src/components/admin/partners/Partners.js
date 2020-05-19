@@ -28,7 +28,6 @@ export default function Partners () {
 							</Link>,
 				email: partner.email,
 				phone: partner.phone,
-				address: partner.address,
 				status: partner.status,
 				created: <Moment format="MMM Do, YYYY" date={partner.joinedOn} />
 			})
@@ -41,7 +40,6 @@ export default function Partners () {
 		{ Header: "Name", accessor: 'name' },
 		{ Header: 'Email Address', accessor: 'email' },
 		{ Header: 'Phone', accessor: 'phone' },
-		{ Header: 'Location', accessor: 'address' },
 		{ Header: "Status", accessor: 'status' },
 		{ Header: "Created On", accessor: 'created'}
 	], [] )
@@ -51,7 +49,11 @@ export default function Partners () {
 			<div className="card-header">
 			  <div className="row">
 			    <div className="col-md-9">
-			      <h4><i>All Partners {partners.length}</i></h4>
+			      <h4>
+							<i>
+								All Partners <span className="badge bg-success">{partners.length}</span>
+							</i>
+						</h4>
 			    </div>
 			    <div className="col-md-3 text-right">
 			      <Link

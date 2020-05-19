@@ -56,19 +56,19 @@ export default function Subscriberform () {
 	const save = (evt) => {
 		let proceed = true
 		if ( fullName.trim()==='' ) {
-			setFullNameErr( 'Name Filed is required' )
+			setFullNameErr( 'Name is required' )
 			proceed = false
 		} else {
 			setFullNameErr( '' )
 		}
 		if ( email.trim()==='' ) {
-			setEmailErr( 'Email Filed is required' )
+			setEmailErr( 'Email is required' )
 			proceed = false
 		} else {
 			setEmailErr( '' )
 		}
 		if ( status.trim()==='' ) {
-			setStatusErr( 'Status Filed is required' )
+			setStatusErr( 'Status is required' )
 			proceed = false
 		} else {
 			setStatusErr( '' )
@@ -92,9 +92,13 @@ export default function Subscriberform () {
 				if ( res.status === code ) {
 					window.location = "/admin/subscribers" 
 				} else {
-					alert("There was a problem submiting your Data")
+          return res.json()
 				}
-			} )
+      } ).then( json => {
+					alert("There was a problem submiting your Data | " + json.error)
+      })
+		} else {
+			alert("Your Data Has erors, Please Correct them.")
 		}
 		evt.preventDefault()
 	}
@@ -127,13 +131,17 @@ export default function Subscriberform () {
 						<label htmlFor="fullName">Full Name</label>
 						{fullNameErr && <small className="text-danger"> {fullNameErr} </small>}
 						<input id="fullName" className="form-control"
-							type="text" value={fullName} onChange={nameChange}/>
+							type="text" value={fullName} onChange={nameChange}
+							placeholder="Full Subscriber's Name"
+						/>
 					</div>
 					<div className="form-group">
 						<label htmlFor="email">Email Address</label>
 						{emailErr && <small className="text-danger"> {emailErr} </small>}
 						<input id="email" className="form-control"
-							type="email" value={email} onChange={emailChange}/>
+							type="email" value={email} onChange={emailChange}
+							placeholder="email@example.com"
+						/>
 					</div>
 					<div className="form-group">
 						<label htmlFor="status">Status</label>
@@ -150,7 +158,7 @@ export default function Subscriberform () {
 						{ subscriber && <><button type="button" data-toggle="modal" data-target="#delete"
 							className="btn btn-danger">Delete</button> 
 							<ConfirmDelete
-								modalId="delete" item="Partner"
+								modalId="delete" item="Subscriber"
 								callback={handleDelete} details={`Subscriber's Email: ${subscriber.email}`} />
 							</>
 						}

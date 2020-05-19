@@ -1,16 +1,11 @@
-import React, { useEffect, useState, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { Link, useRouteMatch } from 'react-router-dom'
+import Moment from 'react-moment'
 
 import Table from '../../static/Table'
 
-export default function Users () {
-	const [ users, setUsers ] = useState( [] )
-	
-	useEffect( () => {
-		fetch( '/api/users' ).then( res => res.json() )
-			.then( json => setUsers( json ))
-	}, [] )
-	
+export default function Users (props) {
+	const users = props.users
 	const match = useRouteMatch()
 
 	const data = useMemo(()=>{
@@ -22,12 +17,17 @@ export default function Users () {
 			count++
 			dt.push({
 				count: count,
-				name: user.fullName,
-				email: <Link to={`${match.path}/${user._id}`}>
-								{user.email}
-							</Link>,
+				username: <Link to={`${match.path}/${user._id}`}>
+										{user.username}
+									</Link>,
+				name: user.firstName + ' ' + user.lastName,
+				admin: user.admin?
+					<span className="badge badge-success">Yes</span> :
+					<span className="badge badge-danger">No</span>,
+				phone: user.phone,
+				partner: user.partner.name,
 				status: user.status,
-				joined: user.joinedOn
+				created: <Moment format="MMM Do, YYYY" date={user.createdOn} />
 			})
 		});
 		return dt
@@ -35,10 +35,13 @@ export default function Users () {
 
 	const columns = useMemo(()=>[
 		{ Header: "#", accessor: 'count' },
-		{ Header: "Email Address", accessor: 'email' },
+		{ Header: 'Username', accessor: 'username' },
 		{ Header: 'Full Name', accessor: 'name' },
+		{ Header: "Phone", accessor: 'phone' },
+		{ Header: "Admin", accessor: 'admin' },
+		{ Header: "Partner", accessor: 'partner' },
 		{ Header: "Status", accessor: 'status' },
-		{ Header: "Joined On", accessor: 'joined'}
+		{ Header: "Created On", accessor: 'created'}
 	], [] )
 	
 	return (
@@ -46,7 +49,11 @@ export default function Users () {
 			<div className="card-header">
 			  <div className="row">
 			    <div className="col-md-9">
-			      <h4><i>All Users {users.length}</i></h4>
+						<h4>
+							<i>
+								All Users <span className="badge bg-success">{users.length}</span>
+							</i>
+						</h4>
 			    </div>
 			    <div className="col-md-3 text-right">
 			      <Link

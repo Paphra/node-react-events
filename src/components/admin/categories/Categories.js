@@ -45,7 +45,11 @@ export default function Categories () {
 			<div className="card-header">
 			  <div className="row">
 			    <div className="col-md-9">
-			      <h4><i>All Categories {categories.length}</i></h4>
+			      <h4>
+							<i>
+								All Categories <span className="badge bg-success">{categories.length}</span>
+							</i>
+						</h4>
 			    </div>
 			    <div className="col-md-3 text-right">
 			      <Link

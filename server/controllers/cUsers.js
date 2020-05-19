@@ -11,17 +11,21 @@ class UserController{
 
 	// get all users
 	static getAllUsers(req, res){
-		User.find({}, (err, users)=>{
-			if(err) return error(err, res);
-			return res.status(200).json(users);
-		});
+		User.find( {} )
+			.populate( 'partner' )
+			.exec( (err, users)=>{
+				if(err) return error(err, res);
+				return res.status(200).json(users);
+			})
 	}
 
 	static getSingleUser(req, res){
-		User.findById(req.params.id, (err, user)=>{
-			if(err) return error(err, res);
-			return res.status(200).json(user);
-		});
+		User.findById( req.params.id )
+			.populate( 'partner' )
+			.exec( (err, user)=>{
+				if(err) return error(err, res);
+				return res.status(200).json(user);
+			})
 	}
 
 	static deleteUser(req, res){

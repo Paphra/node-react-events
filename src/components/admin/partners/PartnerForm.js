@@ -81,32 +81,32 @@ export default function Partnerform () {
 	const save = (evt) => {
 		let proceed = true
 		if ( name.trim()==='' ) {
-			setNameErr( 'Name Filed is required' )
+			setNameErr( 'Name is required' )
 			proceed = false
 		} else {
 			setNameErr( '' )
 		}
 		if ( email.trim()==='' ) {
-			setEmailErr( 'Email Filed is required' )
+			setEmailErr( 'Email is required' )
 			proceed = false
 		} else {
 			setEmailErr( '' )
 		}
 		if ( phone.trim()==='' ) {
-			setPhoneErr( 'Phone Filed is required' )
+			setPhoneErr( 'Phone is required' )
 			proceed = false
 		} else {
 			setPhoneErr( '' )
 		}
 		if ( image.trim()==='' ) {
-			setImageErr( 'Image Filed is required' )
+			setImageErr( 'Image is required' )
 			proceed = false
 		} else {
 			setImageErr( '' )
 		}
 		
 		if ( status.trim()==='' ) {
-			setStatusErr( 'Status Filed is required' )
+			setStatusErr( 'Status is required' )
 			proceed = false
 		} else {
 			setStatusErr( '' )
@@ -134,9 +134,13 @@ export default function Partnerform () {
 				if ( res.status === code ) {
 					window.location = "/admin/partners" 
 				} else {
-					alert("There was a problem submiting your Data")
+          return res.json()
 				}
-			} )
+      } ).then( json => {
+					alert("There was a problem submiting your Data | " + json.error)
+      })
+		} else {
+			alert("Your Data Has erors, Please Correct them.")
 		}
 		evt.preventDefault()
 	}
@@ -169,10 +173,12 @@ export default function Partnerform () {
 					<div className="row">
 						<div className="col-md-6">
 							<div className="form-group">
-								<label htmlFor="name">Full Name</label>
+								<label htmlFor="name">Partner's Name</label>
 								{nameErr && <small className="text-danger"> {nameErr} </small>}
 								<input id="name" className="form-control"
-									type="text" value={name} onChange={nameChange}/>
+									type="text" value={name} onChange={nameChange}
+									placeholder="Enter the Full Name"
+								/>
 							</div>
 						</div>
 						<div className="col-md-6">
@@ -180,7 +186,9 @@ export default function Partnerform () {
 								<label htmlFor="phone">Phone Number</label>
 								{phoneErr && <small className="text-danger"> {phoneErr} </small>}
 								<input id="phone" className="form-control"
-									type="tel" value={phone} onChange={phoneChange}/>
+									type="tel" value={phone} onChange={phoneChange}
+									placeholder="Enter Phone Number"
+								/>
 							</div>		
 						</div>
 					</div>
@@ -188,14 +196,18 @@ export default function Partnerform () {
 						<label htmlFor="email">Email Address</label>
 						{emailErr && <small className="text-danger"> {emailErr} </small>}
 						<input id="email" className="form-control"
-							type="email" value={email} onChange={emailChange}/>
+							type="email" value={email} onChange={emailChange}
+							placeholder="email@example.com"
+						/>
 					</div>		
 					<div className="row">
 						<div className="col-md-6">
 							<div className="form-group">
 								<label htmlFor="address">Address/Location</label>
 								<input id="email" className="form-control"
-									type="text" value={address} onChange={evt=>setAddress(evt.target.value)}/>
+									type="text" value={address} onChange={evt => setAddress( evt.target.value )}
+									placeholder="Enter Partner's Location"
+								/>
 							</div>
 						</div>
 						<div className="col-md-6">
@@ -215,7 +227,7 @@ export default function Partnerform () {
 						<label htmlFor="description">Description</label>
 						<textarea id="description" className="form-control"
 							value={description} onChange={evt => setDescription( evt.target.value )}
-							rows="5" />
+							rows="5" placeholder="Enter a Description"/>
 					</div>
 					<div className="form-group">
 						<div className="row">
@@ -228,26 +240,26 @@ export default function Partnerform () {
 										onDone={imageChange}
 										className="form-control"
 									/>
-								</div>				
-							</div>
-							<div className="col-md-6">
+								</div>
 								<div className="text-center"
 									id="image-preview">
 									{image && <img className="img-rounded" src={image} width="90%" alt="Partner" />}		
 								</div>
 							</div>
+							<div className="col-md-6">
+								<hr/>
+								<div className="text-center">
+									{partner && <><button type="button" data-toggle="modal" data-target="#delete"
+										className="btn btn-danger">Delete</button>
+										<ConfirmDelete
+											modalId="delete" item="Partner"
+											callback={handleDelete} details={`Partner's Name: ${partner.name}`} />
+										</>
+									}
+									<button type="submit" className="btn btn-success">Save</button>
+								</div>
+							</div>
 						</div>
-					</div>
-					
-					<div className="text-center">
-						{partner && <><button type="button" data-toggle="modal" data-target="#delete"
-							className="btn btn-danger">Delete</button>
-							<ConfirmDelete
-								modalId="delete" item="Partner"
-								callback={handleDelete} details={`Partner's Name: ${partner.name}`} />
-							</>
-						}
-						<button type="submit" className="btn btn-success">Save</button>
 					</div>
 				</form>
 			</div>

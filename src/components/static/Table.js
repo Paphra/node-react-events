@@ -45,7 +45,7 @@ export default function Table (props) {
 	return (
 		<div className="p-2">
 			<div className="table-responsive">
-				<table {...getTableProps()} style={{ border: 'solid 1px blue', width: '100%' }}>
+				<table {...getTableProps()} style={{ border: 'solid 1px blue', width: '100%', fontSize: "9" }}>
 					<thead>
 						{headerGroups.map(headerGroup => (
 							<tr {...headerGroup.getHeaderGroupProps()}>
@@ -56,10 +56,9 @@ export default function Table (props) {
 											borderBottom: 'solid 3px red',
 											background: 'aliceblue',
 											color: 'black',
-											fontWeight: 'bold',
 										}}
 									>
-										{column.render('Header')}
+										<small><b>{column.render('Header')}</b></small>
 									</th>
 								))}
 							</tr>
@@ -75,12 +74,11 @@ export default function Table (props) {
 											<td
 												{...cell.getCellProps()}
 												style={{
-													padding: '10px',
 													border: 'solid 1px gray',
 													background: 'papayawhip',
 												}}
 											>
-												{cell.render('Cell')}
+												<small>{cell.render('Cell')}</small>
 											</td>
 										)
 									})}

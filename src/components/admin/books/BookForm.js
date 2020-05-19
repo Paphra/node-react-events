@@ -3,9 +3,9 @@ import { useParams, Link } from 'react-router-dom'
 
 import ConfirmDelete from '../../static/ConfirmDelete'
 
-export default function Commentform () {
-	const { commentId } = useParams()
-	const [ comment, setComment ] = useState( null )
+export default function Bookform () {
+	const { bookId } = useParams()
+	const [ book, setBook ] = useState( null )
 
 	const [ fullName, setFullName ] = useState( '' )
 	const [ fullNameErr, setFullNameErr ] = useState( '' )
@@ -17,19 +17,19 @@ export default function Commentform () {
 	const [ statusErr, setStatusErr ] = useState( '' )
 
 	useEffect( () => {
-		if ( commentId ) {
-			fetch('/api/comments/'+commentId)
+		if ( bookId ) {
+			fetch('/api/books/'+bookId)
 				.then( res => res.json() )
 				.then( json => {
 					if ( json ) {
-						setComment( json )	
+						setBook( json )	
 						setFullName(json.fullName)
 						setEmail(json.email)
 						setStatus(json.status)
 					}
 				} )
 		}
-	}, [commentId])
+	}, [bookId])
 	
 	const set = ( evt, fun, funErr ) => {
 		let value = evt.target.value
@@ -80,9 +80,9 @@ export default function Commentform () {
 				email: email,
 				status: status,
 			}
-			let path = commentId ? '/' + commentId : ''
-			let code = commentId ? 200 : 201
-			fetch( '/api/comments' + path, {
+			let path = bookId ? '/' + bookId : ''
+			let code = bookId ? 200 : 201
+			fetch( '/api/books' + path, {
 				method: 'post',
 				body: JSON.stringify( body ),
 				headers: {
@@ -90,7 +90,7 @@ export default function Commentform () {
 				}
 			} ).then( res => {
 				if ( res.status === code ) {
-					window.location = "/admin/comments" 
+					window.location = "/admin/books" 
 				} else {
           return res.json()
 				}
@@ -103,11 +103,11 @@ export default function Commentform () {
 		evt.preventDefault()
 	}
 	const handleDelete = ( evt ) => {
-		fetch( "/api/comments/" + commentId, {
+		fetch( "/api/books/" + bookId, {
 			method: 'delete'
 		} ).then( res => {
 			if ( res.status === 200 ) {
-				window.location = "/admin/comments"
+				window.location = "/admin/books"
 			}
 		})
 	}
@@ -116,10 +116,10 @@ export default function Commentform () {
 			<div className="card-header">
 				<div className="row">
 					<div className="col-9">
-						<h4>{comment ? "Edit" : "Create"} A Comment</h4>
+						<h4>{book ? "Edit" : "Create"} A Book</h4>
 					</div>
 					<div className="col-3 text-right">
-						<Link to="/admin/comments" className="btn btn-primary" >
+						<Link to="/admin/books" className="btn btn-primary" >
 							Back
 						</Link>
 					</div>
@@ -132,7 +132,7 @@ export default function Commentform () {
 						{fullNameErr && <small className="text-danger"> {fullNameErr} </small>}
 						<input id="fullName" className="form-control"
 							type="text" value={fullName} onChange={nameChange}
-							placeholder="Full Comment's Name"
+							placeholder="Full Book's Name"
 						/>
 					</div>
 					<div className="form-group">
@@ -155,11 +155,11 @@ export default function Commentform () {
 					</div>
 
 					<div className="text-center">
-						{ comment && <><button type="button" data-toggle="modal" data-target="#delete"
+						{ book && <><button type="button" data-toggle="modal" data-target="#delete"
 							className="btn btn-danger">Delete</button> 
 							<ConfirmDelete
-								modalId="delete" item="Comment"
-								callback={handleDelete} details={`Comment's Email: ${comment.email}`} />
+								modalId="delete" item="Book"
+								callback={handleDelete} details={`Book's Email: ${book.email}`} />
 							</>
 						}
 						<button type="submit" className="btn btn-success">Save</button>

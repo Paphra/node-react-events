@@ -49,13 +49,13 @@ export default function Categoryform () {
 	const save = (evt) => {
 		let proceed = true
 		if ( name.trim()==='' ) {
-			setNameErr( 'Name Filed is required' )
+			setNameErr( 'Name is required' )
 			proceed = false
 		} else {
 			setNameErr( '' )
 		}
 		if ( description.trim()==='' ) {
-			setDescriptionErr( 'Description Filed is required' )
+			setDescriptionErr( 'Description is required' )
 			proceed = false
 		} else {
 			setDescriptionErr( '' )
@@ -78,9 +78,13 @@ export default function Categoryform () {
 				if ( res.status === code ) {
 					window.location = "/admin/categories" 
 				} else {
-					alert("There was a problem submiting your Data")
+          return res.json()
 				}
-			} )
+      } ).then( json => {
+					alert("There was a problem submiting your Data | " + json.error)
+      })
+		} else {
+			alert("Your Data Has erors, Please Correct them.")
 		}
 		evt.preventDefault()
 	}
@@ -115,13 +119,17 @@ export default function Categoryform () {
 						<label htmlFor="name">Category Name</label>
 						{nameErr && <small className="text-danger"> {nameErr} </small>}
 						<input id="name" className="form-control"
-							value={name} onChange={nameChange}/>
+							value={name} onChange={nameChange} type="text"
+							placeholder="Enter Category Name"
+						/>
 					</div>
 					<div className="form-group">
 						<label htmlFor="description">Description</label>
 						{descriptionErr && <small className="text-danger"> {descriptionErr} </small>}
 						<textarea id="description" className="form-control"
-							value={description} onChange={descriptionChange}/>
+							value={description} onChange={descriptionChange} rows="4"
+							placeholder="Enter a ADescription for the category"
+						/>
 					</div>
 					
 					<div className="text-center">

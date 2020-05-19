@@ -10,16 +10,21 @@ var EventSchema = new Schema({
 	openSlots: {type: Number, default: 0},
 	partners: [{type: Schema.Types.ObjectId, ref: 'Partner'}],
 	
-	startDate: { type: Date, required: true },
-	endDate: {type: Date, required: true},
+	startDate: { type: String, required: true },
+	startTime: { type: String, required: true },
+	endDate: { type: String, required: true },
+	endTime: { type: String, required: true },
 	
 	category: { type: Schema.Types.ObjectId, ref: 'Category' },
+	price: Number,
+	dscount: Number,
+	currency: { type: String, enum: [ 'UGX', 'USD' ], default: 'UGX' },
 	
-	tags: [String],
 	image: String,
-	desc: { type: String, required: false },
-	location: {type: String, required: true},
+	description: String,
+	location: { type: String, required: true },
 
+	status: { type: String, enum: [ 'Draft', 'Published' ], default: 'Draft' },
 	createdOn: {type: Date, default: Date.now},
 });
 

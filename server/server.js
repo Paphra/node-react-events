@@ -46,10 +46,15 @@ api = express()
 app.use(cors())
 app.use(helmet())
 app.use(compression())
-app.use(express.json())
-app.use(express.urlencoded({extended: false}))
+//app.use(express.json())
+//app.use(express.urlencoded({extended: true}))
 app.use(cookieParser())
-app.use(bodyParser.json())
+app.use( bodyParser.json( {
+	limit: "50mb", extended: true
+} ) )
+app.use( bodyParser.urlencoded( {
+	limit: '50mb', extended: true
+}))
 
 /** Register API Routes */
 app.use( '/api', api )
@@ -72,7 +77,7 @@ if(process.env.NODE_ENV && process.env.NODE_ENV !== 'development'){
 }
 
 // handle errors
-app.use((err, req, res, next)=>{
+app.use( ( err, req, res, next ) => {
 	console.error(err.stack)
 	res.status(500).send("Something went wrong!")
 })

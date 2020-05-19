@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import React from 'react'
 import { 
 	Route,
 	Link, 
@@ -8,6 +8,7 @@ import {
 
 import Dashboard from './Dashboard'
 import EventAdmin from './events/EventAdmin'
+import BookAdmin from './books/Bookadmin'
 import CommentAdmin from './comments/CommentAdmin'
 
 import AdminAbout from './AdminAbout'
@@ -18,12 +19,7 @@ import PartnerAdmin from './partners/PartnerAdmin'
 
 export default function Admin(){
 	let match = useRouteMatch()
-	let ref = useRef( null )
 	
-	useEffect( () => {
-		ref.current.focus()
-		document.title = "Admin"
-	}, [ref])
 	return (
 		<>
 			<div className="container-fluid">
@@ -39,7 +35,11 @@ export default function Admin(){
 										</Link>
 									</li>
 									<div className="dropdown-divider"></div>
-									
+									<li className="nav-item">
+										<Link className="nav-link" to={`${ match.url}/books#loc`}>
+											<span className="fas fa-money-check-alt"></span> <span>Bookings</span>
+										</Link>
+									</li>
 									<li className="nav-item">
 										<Link className="nav-link" to={`${ match.url}/events#loc`}>
 											<span className="fas fa-book-open"></span> <span>Events</span>
@@ -83,13 +83,16 @@ export default function Admin(){
 						</div>
 						<hr/>
 					</div>
-					<div ref={ref} id="loc" className="col-md-9">
+					<div id="loc" className="col-md-9">
 						<Switch>
 							<Route path={`${ match.path }/comments`}>
 								<CommentAdmin />
 							</Route>			
 							<Route path={`${ match.path }/events`}>
 								<EventAdmin />
+							</Route>			
+							<Route path={`${ match.path }/books`}>
+								<BookAdmin />
 							</Route>
 							<Route path={`${ match.path }/subscribers`}>
 								<SubscriberAdmin />

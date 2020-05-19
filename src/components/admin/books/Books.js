@@ -4,12 +4,12 @@ import Moment from 'react-moment'
 
 import Table from '../../static/Table'
 
-export default function Subscribers () {
-	const [ subscribers, setSubscribers ] = useState( [] )
+export default function Books () {
+	const [ books, setBooks ] = useState( [] )
 	
 	useEffect( () => {
-		fetch( '/api/subscribers' ).then( res => res.json() )
-			.then( json => setSubscribers( json ))
+		fetch( '/api/books' ).then( res => res.json() )
+			.then( json => setBooks( json ))
 	}, [] )
 	
 	const match = useRouteMatch()
@@ -19,20 +19,20 @@ export default function Subscribers () {
 		let count = 0
 		let dt = []
 		
-		subscribers.forEach(subscriber => {
+		books.forEach(book => {
 			count++
 			dt.push({
 				count: count,
-				name: subscriber.fullName,
-				email: <Link to={`${match.path}/${subscriber._id}`}>
-								{subscriber.email}
+				name: book.fullName,
+				email: <Link to={`${match.path}/${book._id}`}>
+								{book.email}
 							</Link>,
-				status: subscriber.status,
-				joined: <Moment format="MMM Do, YYYY" date={subscriber.joinedOn} />
+				status: book.status,
+				joined: <Moment format="MMM Do, YYYY" date={book.joinedOn} />
 			})
 		});
 		return dt
-	}, [match, subscribers])
+	}, [match, books])
 
 	const columns = useMemo(()=>[
 		{ Header: "#", accessor: 'count' },
@@ -49,7 +49,7 @@ export default function Subscribers () {
 			    <div className="col-md-9">
 			      <h4>
 							<i>
-								All Subscribers <span className="badge bg-success">{subscribers.length}</span>
+								All Bookings <span className="badge bg-success">{books.length}</span>
 							</i>
 						</h4>
 			    </div>
@@ -57,7 +57,7 @@ export default function Subscribers () {
 			      <Link
 			        to={`${match.url}/create`} 
 			        className="btn btn-primary btn-sm">
-			        Create A Subscriber
+			        Create A Booking
 			      </Link>
 			    </div>
 				</div>
