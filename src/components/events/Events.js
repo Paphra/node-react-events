@@ -1,7 +1,32 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
-export default function Events(){
+import CategoryFilter from '../static/CategoryFlter'
+import Event from '../static/Event'
+
+export default function Events () {
+	
+	const [ events, setEvents] = useState([])
+
+	useEffect( () => {
+		fetch("/api/events")
+			.then( res => res.json() )
+			.then( json => setEvents( json ) )
+	}, [])
+
 	return (
-		<h1>Events</h1>
+		<div className="container">
+      <div className="row">
+        <div className="col-md-9">
+          <Event
+						title="Upcoming Events"
+						upcoming={true}
+            events={events}
+            from={0}
+          />
+        </div>
+        <CategoryFilter type="upcoming" />
+      </div>
+        
+    </div>
 	)
 }

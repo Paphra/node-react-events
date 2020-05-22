@@ -29,6 +29,16 @@ class EventController{
 				return res.status(200).json(event);
 			})
 	}
+	
+	static getSingleEventSlug ( req, res ) {
+		Event.findOne( {'slug': req.params.slug} )
+			.populate( 'partners' )
+			.populate( 'category' )
+			.exec((err, event)=>{
+				if(err) return error(err, res);
+				return res.status(200).json(event);
+			})
+	}
 
 	static deleteEvent(req, res){
 		Event.findByIdAndDelete(req.params.id, (err, event)=>{

@@ -17,8 +17,8 @@ export default function CategoryFilter ( props ) {
 				<div className="card-body">
 					<ul className="nav flex-column">
 						{categories.map( ( cat, index ) => {
-							return <li className="nav-item">
-								<Link className="btn btn-primary btn-sm btn-block" to={`/categories/${cat._id}`} >
+							return <li key={index} className="nav-item">
+								<Link className="btn btn-primary btn-sm btn-block" to={`/events/cat/${cat._id}`} >
 									{cat.name}
 								</Link>
 							</li>

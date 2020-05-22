@@ -9,7 +9,7 @@ import Footer from "./static/Footer";
 
 import Home from './Home'
 import About from './About'
-import Events from './events/Events'
+import All from './events/All';
 import History from './History'
 
 import Admin from './admin/Admin'
@@ -28,7 +28,7 @@ function App() {
           </Route>
           <Route path="/events">
             <div id="content" className="container">
-              <Events />
+              <All />
             </div>
           </Route>
           <Route path="/about">

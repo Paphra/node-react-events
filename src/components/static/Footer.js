@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import Success from './Success'
+import Partners from './Partners'
 
 function Footer () {
 	const [ about, setAbout ] = useState(null)
-	
+	const [ partners, setpartners ] = useState( [] )
+	const [ size, setSize] = useState(window.innerWidth)
+		
 	const [ name, setName ] = useState( '' )
 	const [ email, setEmail ] = useState( '' )
 	const [ success, setSuccess ] = useState(false)
@@ -43,18 +46,33 @@ function Footer () {
 	}
 
 	useEffect( () => {
+		
+		window.addEventListener( 'resize', ( win, evt ) => {
+			setSize(window.innerWidth)
+		} )
+		
 		fetch( '/api/about' )
 			.then( res => res.json() )
-			.then(json=>setAbout(json))
+			.then( json => setAbout( json ) )
+		fetch("/api/partners")
+			.then( res => res.json() )
+			.then( json => setpartners( json ) )
+		
 	}, [])
 
 	return (
-
 		<>
+			<hr />
+				
 			<footer className="text-white bg-dark p-4">
 				<div className="dropdown-divider"></div>
+				<div className="p-1">
+					<Partners partners={partners} size={size} />
+				</div>
+				
 				<div className="container-fluid">
-        	<div className="row">
+					<div className="dropdown-divider"></div>
+					<div className="row">
 						<div className="col-md-3 text-center">
 							<h6 className="text-center"><i>Important Links</i></h6>
 							<Link to="/" className="btn btn-secondary btn-sm">

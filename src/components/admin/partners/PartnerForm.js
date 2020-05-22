@@ -17,6 +17,8 @@ export default function Partnerform () {
 	const [ phone, setPhone ] = useState( '' )
 	const [ phoneErr, setPhoneErr ] = useState( '' )
 
+	const [ website, setWebsite ] = useState( '' )
+
 	const [ address, setAddress ] = useState( '' )
 	
 	const [ description, setDescription ] = useState( '' )
@@ -37,6 +39,7 @@ export default function Partnerform () {
 						setName(json.name)
 						setEmail(json.email)
 						setPhone(json.phone)
+						setWebsite(json.website)
 						setAddress(json.address)
 						setDescription(json.description)
 						setImage(json.image)
@@ -117,6 +120,7 @@ export default function Partnerform () {
 				name: name,
 				email: email,
 				phone: phone,
+				website: website,
 				address: address,
 				description: description,
 				image: image,
@@ -193,12 +197,23 @@ export default function Partnerform () {
 						</div>
 					</div>
 					<div className="form-group">
-						<label htmlFor="email">Email Address</label>
-						{emailErr && <small className="text-danger"> {emailErr} </small>}
-						<input id="email" className="form-control"
-							type="email" value={email} onChange={emailChange}
-							placeholder="email@example.com"
-						/>
+						<div className="row">
+							<div className="col-md-6">
+								<label htmlFor="email">Email Address</label>
+								{emailErr && <small className="text-danger"> {emailErr} </small>}
+								<input id="email" className="form-control"
+									type="email" value={email} onChange={emailChange}
+									placeholder="email@example.com"
+								/>
+							</div>
+							<div className="col-md-6">
+								<label htmlFor="website">Website</label>
+								<input id="website" className="form-control" type="text"
+									value={website} onChange={evt=>setWebsite(evt.target.value)}
+									placeholder="http://example.com"
+								/>
+							</div>
+						</div>
 					</div>		
 					<div className="row">
 						<div className="col-md-6">

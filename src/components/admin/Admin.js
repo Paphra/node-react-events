@@ -9,7 +9,6 @@ import {
 import Dashboard from './Dashboard'
 import EventAdmin from './events/EventAdmin'
 import BookAdmin from './books/Bookadmin'
-import CommentAdmin from './comments/CommentAdmin'
 
 import AdminAbout from './AdminAbout'
 import SubscriberAdmin from './subscribers/SubscriberAdmin'
@@ -43,11 +42,6 @@ export default function Admin(){
 									<li className="nav-item">
 										<Link className="nav-link" to={`${ match.url}/events#loc`}>
 											<span className="fas fa-book-open"></span> <span>Events</span>
-										</Link>
-									</li>
-									<li className="nav-item admin-subnav">
-										<Link className="nav-link" to={`${ match.url}/comments#loc`}>
-											<span className="fas fa-book"></span> <span>Comments</span>
 										</Link>
 									</li>
 									<li className="nav-item admin-subnav">
@@ -85,9 +79,6 @@ export default function Admin(){
 					</div>
 					<div id="loc" className="col-md-9">
 						<Switch>
-							<Route path={`${ match.path }/comments`}>
-								<CommentAdmin />
-							</Route>			
 							<Route path={`${ match.path }/events`}>
 								<EventAdmin />
 							</Route>			
