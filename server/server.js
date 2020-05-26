@@ -58,7 +58,6 @@ app.use( bodyParser.urlencoded( {
 
 /** Register API Routes */
 app.use( '/api', api )
-
 /** Register API Routes */
 api.use('/about', apiAbout);
 api.use('/books', apiBooks);

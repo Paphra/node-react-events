@@ -51,23 +51,30 @@ function Event ( props ) {
 										</div>
 									</div>
 								</div>
-								<div className="card-footer text-right">
+								<div className="card-footer">
 									<div className="row">
-										<div className="col-8">
+										<div className="col-9">
 											<p>
 												{upcoming&&<><b>{event.openSlots}</b> Slot(s) remaining |</>} Tickets at @ <b>
-													{`${ event.price } ${ event.currency } ${ event.discount ?
-													<span className="badge badge-success text-white">
+													{`${ event.price } ${ event.currency }`} <br />
+													  {event.discount ? <span className="badge badge-success text-white">
 														{`${event.discount} % Discount`}
-													</span> : '' }`}  </b>
-												{upcoming && <i>
-													Starts in {
-														dates.starts.days ? dates.starts.days + ' day(s)' :
+													</span> : '' }  </b>
+												{upcoming&&((dates.starts.days >= 0 || dates.starts.hours > 0)? <i>
+													| Starts in {
+														dates.starts.days >= 0 ? dates.starts.days + ' day(s)' :
 															dates.starts.hours + ' hour(s)'} 
-												</i>}
+												</i>:<i> | Started {
+														dates.starts.hours <= -24  ? (-dates.starts.days) + ' day(s) Ago' :
+																( -dates.starts.hours ) + ' hour(s) Ago'}
+														{(dates.ends.days >= 0 || dates.ends.hours > 0) && <b> | Ends in  {
+																dates.ends.hours >= 24  ? (dates.ends.days) + ' day(s)' :
+																( dates.ends.hours ) + ' hour(s)'}
+													</b>}
+												</i>)}
 											</p>
 										</div>
-										<div className="col-4">
+										<div className="col-3 text-right">
 											{upcoming && event.openSlots?
 												<Link
 												className="btn btn-success btn-sm"
@@ -113,9 +120,9 @@ const date = ( start, end, upcoming ) => {
 		let ends = makeDate(end.date, end.time )
 		
 		if ( upcoming ) {
-			if ( starts.full < starts.today ) render = false	
+			if ( ends.full < ends.today ) render = false
 		} else {
-			if(starts.full > starts.today) render = false
+			if(ends.full >= ends.today) render = false
 		}
 		
 		return {

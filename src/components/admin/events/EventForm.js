@@ -288,7 +288,6 @@ export default function Eventform () {
 								<label htmlFor="status">Partners</label>
 								<select id="status" className="form-control" multiple={true}
 									value={eventPartners} onChange={eventPartnersChnage}>
-									<option value={null}>-- Partner --</option>
 									{partners && partners.map( ( partner, index ) => {
 										return <option key={index} value={partner._id}>{partner.name}</option>
 									})}

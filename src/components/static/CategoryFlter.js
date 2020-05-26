@@ -18,7 +18,7 @@ export default function CategoryFilter ( props ) {
 					<ul className="nav flex-column">
 						{categories.map( ( cat, index ) => {
 							return <li key={index} className="nav-item">
-								<Link className="btn btn-primary btn-sm btn-block" to={`/events/cat/${cat._id}`} >
+								<Link className="btn btn-outline-primary btn-sm btn-block" to={`/events/cat/${cat._id}`} >
 									{cat.name}
 								</Link>
 							</li>

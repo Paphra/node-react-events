@@ -7,17 +7,17 @@ var BookSchema = new Schema({
 	lastName: String,
 	email: String,
 	phone: String,
-	desc: String,
+	description: String,
 	
 	amount: Number,
 	slots: Number,
 	discount: Number,
-	ticket_no: {type: String, required: false},
+	ticket_no: String,
 	
 	createdOn: {type: Date, default: Date.now},
 	updatedOn: {type: Date, default: Date.now},
 	
-	trackingId: {type: String, max: 50, required: false},
+	trackingId: String,
 	reference: {type: String, max: 50, required: true},
 	status: {type: String, enum: ['PENDING', 'COMPLETED',], default: 'PENDING'},
 	cleared: {type: Boolean, default: false},

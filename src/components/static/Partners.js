@@ -3,6 +3,7 @@ import React from 'react'
 export default function Partners (props) {
 	const partners = props.partners
 	const size = props.size
+	const title = props.title || "Our Partners"
 
 	let cards = 1
 	if ( size <= 768 ) {
@@ -24,13 +25,14 @@ export default function Partners (props) {
 			let partner = partners[count]
 			if ( partner ) {
 				let card = <div key={count} style={{marginLeft: "2%"}}
-					className="media-card bg-dark shadow col-xs-12 col-sm-6 col-md-4 col-lg-3">
-					<h5 className="card-header">
-						<small>{partner.name}</small>
-					</h5>
+					className="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div
+						className="media-card bg-dark text-white shadow"
+						style={{borderRadius: "50px"}}
+					>
 						<div className="card-body">
 							<img alt={partner.title}
-								src={partner.image} width="80%" className="card-image-top rounded" /> 
+								src={partner.image} width="90%" className="card-image-top rounded" /> 
 						</div>
 						<div className="card-footer text-center">
 							{partner.website&&<a className="btn btn-primary btn-sm" target="_blank"
@@ -47,6 +49,7 @@ export default function Partners (props) {
 							</a>}
 						</div>
 					</div>
+				</div>
 				htmlCards.push(card)	
 			} else {
 				break
@@ -77,23 +80,23 @@ export default function Partners (props) {
 	}
 
 	return (
-		<div className="text-center">
+		<div>
 			
 			{partners.length > 0 && <div className="">
-				<h5 className=""><i>Our Partners</i></h5>
+				<h5 className=""><i>{title}</i></h5>
 				<div className="carousel slide multi-carousel" data-ride="carousel"
 					data-interval="3000" id="partners-slider">
-					<div className="carousel-inner row">
+					<div className="carousel-inner text-center row">
 						
 						{getCarouselItems()}
 						
 					</div>
-					<a className="carousel-control-prev" style={{left: "-5%"}} href="#partners-slider"
+					<a className="carousel-control-prev" style={{left: "-7%"}} href="#partners-slider"
 						role="button" data-slide="prev">
 						<span className="carousel-control-prev-icon" aria-hidden="true"></span>
 						<span className="sr-only">Previous</span>
 					</a>
-					<a className="carousel-control-next" style={{right: "-5%"}} href="#partners-slider"
+					<a className="carousel-control-next" style={{right: "-1%"}} href="#partners-slider"
 						role="button" data-slide="next">
 						<span className="carousel-control-next-icon" aria-hidden="true"></span>
 						<span className="sr-only">Next</span>

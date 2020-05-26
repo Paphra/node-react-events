@@ -17,7 +17,7 @@ var EventSchema = new Schema({
 	
 	category: { type: Schema.Types.ObjectId, ref: 'Category' },
 	price: Number,
-	dscount: Number,
+	discount: Number,
 	currency: { type: String, enum: [ 'UGX', 'USD' ], default: 'UGX' },
 	
 	image: String,

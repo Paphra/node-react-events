@@ -66,7 +66,7 @@ function Footer () {
 				
 			<footer className="text-white bg-dark p-4">
 				<div className="dropdown-divider"></div>
-				<div className="p-1">
+				<div className="container">
 					<Partners partners={partners} size={size} />
 				</div>
 				

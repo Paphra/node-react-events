@@ -17,7 +17,8 @@ function Home () {
   const generate = (events) => {
     let toShow = []
     let indics = []
-			
+    let count = 0
+    
     events.map( ( event, index ) => {
       let dates = date(
         { date: event.startDate, time: event.startTime },
@@ -25,9 +26,9 @@ function Home () {
       )
       if ( dates.render ) {
         indics.push(<li data-target="#events-slider"
-          data-slide-to={index} className={index === 0 ? 'active' : ''}></li> )
+          data-slide-to={count} className={count === 0 ? 'active' : ''}></li> )
         
-        toShow.push(<div key={index} className={`carousel-item ${ index === 0?'active':'' }`}>
+        toShow.push(<div className={`carousel-item ${ count === 0?'active':'' }`}>
           <img className="d-block w-100" src={event.image} alt={event.title} />
             <div className="carousel-caption">
               <h5>{event.title}</h5>
@@ -38,17 +39,23 @@ function Home () {
               }}></div>
             <p>
 							<b>{event.openSlots}</b> Slot(s) remaining | Tickets at @ <b>
-													{`${ event.price } ${ event.currency } ${ event.discount ?
-													<span className="badge badge-success text-white">
-														{`${event.discount} % Discount`}
-													</span> : '' }`}  </b>
-												<i>
-													Starts in {
-														dates.starts.days ? dates.starts.days + ' day(s)' :
-															dates.starts.hours + ' hour(s)'} 
-												</i>
-											</p>
-          
+								{`${ event.price } ${ event.currency }`} <br />
+								  {event.discount ? <span className="badge badge-success text-white">
+									{`${event.discount} % Discount`}
+								  	</span> : '' }  </b>
+									{((dates.starts.days >= 0 || dates.starts.hours > 0)? <i>
+										| Starts in {
+									  	dates.starts.days >= 0 ? dates.starts.days + ' day(s)' :
+												dates.starts.hours + ' hour(s)'} 
+										</i>:<i> | Started {
+											dates.starts.hours <= -24  ? (-dates.starts.days) + ' day(s) Ago' :
+												( -dates.starts.hours ) + ' hour(s) Ago'}
+											{(dates.ends.days >= 0 || dates.ends.hours > 0) && <b> | Ends in  {
+													dates.ends.hours >= 24  ? (dates.ends.days) + ' day(s)' :
+													( dates.ends.hours ) + ' hour(s)'}
+										</b>}
+									</i>)}
+							</p>
             <hr />
 						{event.openSlots?
 							<Link
@@ -61,7 +68,7 @@ function Home () {
           
           </div>
         </div> )
-        
+        count ++
       }
       return true
     } )
